@@ -3,16 +3,23 @@ import '../App.css';
 
 class NoteList extends React.Component {
   constructor(props) {
+    console.log(props);
     super(props);
+
+    this.addNote = this.addNote.bind(this);
+    this.updateHandle = this.updateHandle.bind(this);
+    this.updateNote = this.updateNote.bind(this);
+    this.updateHandle2 = this.updateHandle2.bind(this);
+
     this.state = {
+      noteObj: this.props.note,
       note: '',
     };
-    this.addHandle = this.addHandle.bind(this);
-    this.updateHandle = this.updateHandle.bind(this);
   }
-  addHandle() {
+
+  addNote() {
     if (this.state.note.length) {
-      this.props.addHandle(this.state.note);
+      this.props.addNote(this.state.note);
       this.setState({ note: '' });
     }
   }
@@ -21,11 +28,40 @@ class NoteList extends React.Component {
       note: e.target.value,
     });
   }
+
+  updateHandle2(e) {
+    const { noteObj } = this.state;
+    this.setState({
+      noteObj: {
+        ...noteObj,
+        text: e.target.value,
+      },
+    });
+  }
+  updateNote() {
+    this.props.updateNote(this.props.note.id, this.state.noteObj);
+    const { noteObj } = this.state;
+    this.setState({
+      noteObj: {
+        ...noteObj,
+        text: '',
+      },
+    });
+
+    //window.location.reload();
+  }
+  componentDidUpdate() {
+    if (this.props.note.id !== this.state.noteObj.id) {
+      this.setState({
+        noteObj: this.props.note,
+      });
+    }
+  }
+
   render() {
-    console.log(this.state.note);
-    return (
+    return !this.props.editMode ? (
       <div>
-        <form className='note__log-form'>
+        <form className='note__log-form' onSubmit={(e) => e.preventDefault()}>
           <input
             type='text'
             name='note'
@@ -34,7 +70,22 @@ class NoteList extends React.Component {
             placeholder='Take a note...'
             autoComplete='off'
           />
-          <input type='button' value='add note' onClick={this.addHandle} />
+          <input type='button' value='add note' onClick={this.addNote} />
+        </form>
+      </div>
+    ) : (
+      <div>
+        <form className='note__log-form' onSubmit={(e) => e.preventDefault()}>
+          <input
+            type='text'
+            name='text'
+            onChange={this.updateHandle2}
+            value={this.state.noteObj.text || ''}
+            placeholder='Take a note...'
+            autoComplete='off'
+          />
+
+          <input type='button' value='edit note' onClick={this.updateNote} />
         </form>
       </div>
     );

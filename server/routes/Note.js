@@ -55,6 +55,7 @@ router.put('/:id', (req, res) => {
     if (note.id === id) {
       updateNote = {
         id: note.id,
+        date: note.date,
         ...req.body,
       };
       return updateNote;

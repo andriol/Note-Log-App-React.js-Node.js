@@ -11,8 +11,8 @@ const weekdays = [
   'Saturday',
 ];
 
-const Note = ({ notes }) => {
-  function dateFun(date) {
+const Note = ({ notes, deleteHandle, updateNote }) => {
+  function dateFunc(date) {
     const dateConfig = new Date(date);
     const year = dateConfig.getFullYear();
     const day = weekdays[dateConfig.getDay()];
@@ -20,10 +20,27 @@ const Note = ({ notes }) => {
     return `${day} ${dayNum}, ${year}`;
   }
   return notes.map((note) => {
+    console.log(note);
     return (
       <div className='note' key={note.id}>
         <h2>{note.text}</h2>
-        <h3>{dateFun(note.date)}</h3>
+        <h3>{dateFunc(note.date)}</h3>
+        <div className='btns'>
+          <button
+            type='submit'
+            className='btn btn-info'
+            onClick={() => updateNote(note.id, note.text)}
+          >
+            Edit
+          </button>
+          <button
+            type='submit'
+            className='btn btn-danger'
+            onClick={() => deleteHandle(note.id)}
+          >
+            Delete
+          </button>
+        </div>
       </div>
     );
   });

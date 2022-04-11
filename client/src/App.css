@@ -89,3 +89,34 @@ h2 {
 h3 {
   padding: 1rem;
 }
+.btn-info {
+  width: 6rem;
+  margin: 1rem 0;
+  background-color: #09aeae;
+  border: none;
+  color: white;
+}
+.btn-danger {
+  width: 6rem;
+  background-color: #d72503;
+  border: none;
+  color: white;
+}
+
+@media screen and (max-width: 768px) {
+  .btn-danger,
+  .btn-primary {
+    margin-top: 1rem;
+  }
+}
+@media screen and (max-width: 1199px) {
+  .btn-danger {
+    margin-top: 1rem;
+  }
+}
+.btns {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-end;
+}

@@ -41,6 +41,7 @@ const updateNote = () => {
     if (note.id === id) {
       updateNote = {
         id: note.id,
+        date: date.date,
         ...req.body,
       };
       return updatedNote;
