@@ -1,4 +1,6 @@
 import React from 'react';
+import { ImBin } from 'react-icons/im';
+import { ImPencil } from 'react-icons/im';
 import '../App.css';
 
 const weekdays = [
@@ -20,7 +22,6 @@ const Note = ({ notes, deleteHandle, updateNote }) => {
     return `${day} ${dayNum}, ${year}`;
   }
   return notes.map((note) => {
-    console.log(note);
     return (
       <div className='note' key={note.id}>
         <h2>{note.text}</h2>
@@ -31,14 +32,14 @@ const Note = ({ notes, deleteHandle, updateNote }) => {
             className='btn btn-info'
             onClick={() => updateNote(note.id, note.text)}
           >
-            Edit
+            <ImPencil />
           </button>
           <button
             type='submit'
             className='btn btn-danger'
             onClick={() => deleteHandle(note.id)}
           >
-            Delete
+            <ImBin />
           </button>
         </div>
       </div>

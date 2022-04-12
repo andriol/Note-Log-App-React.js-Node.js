@@ -14,6 +14,7 @@ class NoteList extends React.Component {
     this.state = {
       noteObj: this.props.note,
       note: '',
+      editMode: this.props.editMode,
     };
   }
 
@@ -46,34 +47,20 @@ class NoteList extends React.Component {
         ...noteObj,
         text: '',
       },
+      editMode: false,
     });
-
-    //window.location.reload();
   }
   componentDidUpdate() {
     if (this.props.note.id !== this.state.noteObj.id) {
       this.setState({
         noteObj: this.props.note,
+        editMode: this.props.editMode,
       });
     }
   }
 
   render() {
-    return !this.props.editMode ? (
-      <div>
-        <form className='note__log-form' onSubmit={(e) => e.preventDefault()}>
-          <input
-            type='text'
-            name='note'
-            onChange={this.updateHandle}
-            value={this.state.note}
-            placeholder='Take a note...'
-            autoComplete='off'
-          />
-          <input type='button' value='add note' onClick={this.addNote} />
-        </form>
-      </div>
-    ) : (
+    return this.state.editMode ? (
       <div>
         <form className='note__log-form' onSubmit={(e) => e.preventDefault()}>
           <input
@@ -86,6 +73,20 @@ class NoteList extends React.Component {
           />
 
           <input type='button' value='edit note' onClick={this.updateNote} />
+        </form>
+      </div>
+    ) : (
+      <div>
+        <form className='note__log-form' onSubmit={(e) => e.preventDefault()}>
+          <input
+            type='text'
+            name='note'
+            onChange={this.updateHandle}
+            value={this.state.note}
+            placeholder='Take a note...'
+            autoComplete='off'
+          />
+          <input type='button' value='add note' onClick={this.addNote} />
         </form>
       </div>
     );

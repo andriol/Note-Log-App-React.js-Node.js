@@ -74,22 +74,16 @@ class App extends React.Component {
             return { notes };
           },
           () => {
-            console.log(this.state);
             this.setState(this.state.notes);
           }
         );
         const notes = this.state.notes;
         const note = notes.find((note) => note.id === id);
         console.log(notes, note);
-        this.setState(
-          {
-            note: note,
-            editMode: true,
-          },
-          () => {
-            console.log(this.state);
-          }
-        );
+        this.setState({
+          note: note,
+          editMode: true,
+        });
       });
   }
 
