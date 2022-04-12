@@ -98,7 +98,6 @@ class App extends React.Component {
             editMode={this.state.editMode}
             addNote={this.addHandle}
             updateNote={this.updateNote}
-            changeState={this.changeState}
           />
           <div className='notes'>
             <Note
